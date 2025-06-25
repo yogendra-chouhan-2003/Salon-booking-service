@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Sign Up - Apna Salon</title>
+  <%-include("__bootstrap.ejs")%>
+</head>
+<body>
+
+  <div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="card shadow rounded-4">
+          <div class="card-body p-4">
+            <h3 class="text-center mb-4">Create an Account</h3>
+            <form action="/user/signup" method="post">
+              
+              <div class="mb-3">
+                <label for="name" class="form-label">Full Name</label>
+                <input type="text" class="form-control" id="name" name="name" placeholder="Enter Name" required>
+              </div>
+
+              <div class="mb-3">
+                <label for="email" class="form-label">Email address</label>
+                <input onblur="checkForEmailId(this.value)" type="email" class="form-control" id="email" name="email" placeholder="Enter email " required>
+                <small id="emailError"></small>
+              </div>
+
+              <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" class="form-control" id="password" name="password" placeholder="Enter password" required>
+              </div>
+
+              <div class="mb-3">
+                <label for="contact" class="form-label">Contact Number</label>
+                <input type="tel" class="form-control" id="contact" name="contact" placeholder="Enter Mobile number" required pattern="[0-9]{10}">
+              </div>
+
+              <div class="d-grid">
+                <button type="submit" class="btn btn-dark">Sign Up</button>
+              </div>
+            </form>
+            <p class="text-center mt-3 mb-0">
+              Already have an account? <a href="/sign-in">Sign In</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function checkForEmailId(email){
+       let xhttp = new XMLHttpRequest();
+       xhttp.open("GET",`http://localhost:3000/user/check-for-email-id/${email}`,true);
+       xhttp.send();
+       xhttp.onreadystatechange = function(){
+        if(xhttp.readyState == 4){
+          let response = xhttp.responseText;
+          response = JSON.parse(response);
+          let emailError = document.getElementById("emailError");
+          response.status ? emailError.setAttribute("class","text-danger") : emailError.setAttribute("class","text-success");
+          emailError.innerText = response.message;  
+        }
+       }
+    }
+   </script>
+</body>
+</html>

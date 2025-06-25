@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>User Dashboard - Apna Salon</title>
+  <%- include("__bootstrap.ejs") %>
+</head>
+<body>
+
+  
+  <%- include("header.ejs") %>
+
+  <div class="container mt-5">
+    <div class="p-4 shadow rounded-4 bg-light">
+      <h2 class="mb-4 text-center">Welcome, <%= currentUser.name %> </h2>
+      
+      <h4>Your Bookings</h4>
+      <% if (bookings.length > 0) { %>
+        <div class="table-responsive">
+          <table class="table table-striped table-hover mt-3">
+            <thead class="table-dark">
+              <tr>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Service</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% bookings.forEach(b => { %>
+                <tr>
+                  <td><%= new Date(b.date).toLocaleDateString('en-IN') %></td>
+                  <td><%= b.time.substring(0,5) %></td>
+                  <td><%= b.service %></td>
+                  <td>
+        <form action="/user/booking/cancel/<%= b.id %>" method="POST" onsubmit="return confirm('Are you sure you want to cancel this booking?')">
+          <button type="submit" class="btn btn-danger btn-sm">Cancel</button>
+        </form>
+      </td>
+                </tr>
+              <% }) %>
+            </tbody>
+          </table>
+        </div>
+      <% } else { %>
+        <div class="alert alert-warning mt-3">No bookings found.</div>
+      <% } %>
+    </div>
+  </div>
+
+  <%- include("footer.ejs") %>
+</body>
+</html>
