@@ -36,6 +36,9 @@ class Product{
     static findAll(){
         return new Promise((resolve,reject)=>{
             pool.getConnection((err,con)=>{
+                if(err){
+                    return reject(err);
+                }
                let sql = "select * from product";
                con.query(sql,(err,result)=>{
                 con.release();
@@ -48,6 +51,9 @@ class Product{
     static findById(productId){
       return new Promise((resolve,reject)=>{
             pool.getConnection((err,con)=>{
+                if(err){
+                    return reject(err);
+                }
                let sql = "select * from product where id = ?";
                con.query(sql,[productId*1],(err,result)=>{
                 con.release();

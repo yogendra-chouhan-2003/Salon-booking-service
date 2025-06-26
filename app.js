@@ -10,7 +10,7 @@ dotenv.config();
 const app = express();
 app.set("view engine","ejs");
 app.use(session({
-    secret: "some-secret",
+    secret: process.env.SECRET_KEY,
     resave: false,
     saveUninitialized: true
 }));
