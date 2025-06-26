@@ -11,4 +11,7 @@ router.get("/booking",bookingPage);
 router.get("/sign-in",signInPage);
 router.get("/sign-up",signUpPage);
 
+
+
+
 export default router;
