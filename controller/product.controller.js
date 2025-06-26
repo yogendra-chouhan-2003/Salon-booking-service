@@ -1,5 +1,16 @@
 import Product from "../model/product.model.js";
 
+
+export const servicesPage = async (req, res) => {
+  try {
+    const products = await Product.findAll();
+    res.render("services", { products });
+  } catch (err) {
+    console.error("Error loading services:", err);
+    res.status(500).send("Internal Server Error");
+  }
+};
+
 export const saveAll = async(request,response,next)=>{
     try{
     let allProduct = request.body;

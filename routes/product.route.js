@@ -1,8 +1,13 @@
 import express from "express";
-import {saveAll,getProductById} from "../controller/product.controller.js";
-import { bookingPage } from "../controller/product.controller.js";
+import {servicesPage,bookingPage, saveAll,getProductById} from "../controller/product.controller.js";
+
 import { auth } from "../middleware/auth.js";
 const router = express.Router();
+
+
+ 
+
+router.get("/", servicesPage);
 
 //http://localhost:3000/product/save-all;
 
